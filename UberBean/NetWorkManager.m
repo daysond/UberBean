@@ -13,7 +13,7 @@
 -(void)fetchCafeData:(void(^)(NSArray *businesses))completionHandler{
     
     
-    NSURL *url = [NSURL URLWithString:@"https://api.yelp.com/v3/businesses/search?term=cafe&latitude=49.281815&longitude=-123.108414"];
+    NSURL *url = [NSURL URLWithString:@"https://api.yelp.com/v3/businesses/search?term=cafe&latitude=43.644179&longitude=-79.404393"];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     

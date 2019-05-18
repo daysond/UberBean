@@ -14,11 +14,11 @@
 {
     self = [super init];
     if (self) {
-        _name = cafeInfo[@"name"];
+        _title = cafeInfo[@"name"];
         _imageURL = [NSURL URLWithString:cafeInfo[@"image_url"]];
         _rating = cafeInfo[@"rating"];
         CLLocationDegrees lat = [cafeInfo[@"coordinates"][@"latitude"] doubleValue];
-        CLLocationDegrees lon = [cafeInfo[@"coordinates"][@"longtitude"] doubleValue];
+        CLLocationDegrees lon = [cafeInfo[@"coordinates"][@"longitude"] doubleValue];
         _coordinate = CLLocationCoordinate2DMake(lat, lon);
     }
     return self;

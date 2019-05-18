@@ -7,14 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreLocation/CoreLocation.h>
+//#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Cafe : NSObject
+@interface Cafe : NSObject <MKAnnotation>
 
 @property (nonatomic,readonly) CLLocationCoordinate2D coordinate;
-@property (nonatomic) NSString* name;
+@property (nonatomic, readonly, copy) NSString* title;
 @property (nonatomic) NSURL* imageURL;
 @property (nonatomic) NSString* rating;
 

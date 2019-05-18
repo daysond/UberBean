@@ -31,6 +31,10 @@
     
     self.cafes = [NSMutableArray array];
     
+    [self fetchData];
+    
+    [self.cafeMap registerClass:[MKAnnotationView class] forAnnotationViewWithReuseIdentifier:@"pin"];
+    
 
     
 }
@@ -62,11 +66,16 @@
     
     [self.networkManager fetchCafeData:^(NSArray * _Nonnull businesses) {
         for (NSDictionary* cafeInfo in businesses) {
-            
             Cafe *cafe = [[Cafe alloc]initWithCafeInfo:cafeInfo];
             [self.cafes addObject:cafe];
         }
+       
+        for (Cafe *cafe in self.cafes) {
+            [self.cafeMap addAnnotation:cafe];
+        }
+        [self.cafeMap showAnnotations:self.cafes animated:YES];
     }];
+
 }
 
 #pragma mark - Delegate
@@ -85,12 +94,24 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    NSLog(@"checking auth");
+
     if (status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedWhenInUse) {
         [self.locationManager requestLocation];
     }
     
 }
+
+//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+//
+//    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+//        return nil;
+//    }
+//
+//    MKPinAnnotationView *pin = (MKPinAnnotationView*) [mapView dequeueReusableAnnotationViewWithIdentifier:@"pin" forAnnotation:annotation];
+//
+//    return pin;
+//
+//}
 
 
 @end
