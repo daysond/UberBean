@@ -15,8 +15,9 @@
 @interface ViewController () <CLLocationManagerDelegate,MKMapViewDelegate>
 
 @property (nonatomic) CLLocationManager *locationManager;
+@property (nonatomic) NetWorkManager *networkManager;
 @property (weak, nonatomic) IBOutlet MKMapView *cafeMap;
-
+@property (nonatomic) NSMutableArray <Cafe*> *cafes;
 @end
 
 @implementation ViewController
@@ -28,11 +29,13 @@
     
     [self.locationManager requestWhenInUseAuthorization];
     
-    NetWorkManager *networkManager = [NetWorkManager new];
+    self.cafes = [NSMutableArray array];
     
-    [networkManager fetchData];
+
     
 }
+
+#pragma mark - Initializer 
 
 -(CLLocationManager*)locationManager {
     
@@ -43,6 +46,27 @@
         _locationManager.delegate = self;
     }
     return _locationManager;
+}
+
+-(NetWorkManager*)networkManager {
+    
+    if (!_networkManager) {
+        _networkManager = [NetWorkManager new];
+    }
+    return _networkManager;
+}
+
+#pragma mark - Data source
+
+-(void)fetchData{
+    
+    [self.networkManager fetchCafeData:^(NSArray * _Nonnull businesses) {
+        for (NSDictionary* cafeInfo in businesses) {
+            
+            Cafe *cafe = [[Cafe alloc]initWithCafeInfo:cafeInfo];
+            [self.cafes addObject:cafe];
+        }
+    }];
 }
 
 #pragma mark - Delegate

@@ -13,7 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Cafe : NSObject
 
-@property (nonatomic) CLLocationCoordinate2D coordinate;
+@property (nonatomic,readonly) CLLocationCoordinate2D coordinate;
+@property (nonatomic) NSString* name;
+@property (nonatomic) NSURL* imageURL;
+@property (nonatomic) NSString* rating;
+
+- (instancetype)initWithCafeInfo: (NSDictionary*)cafeInfo;
 
 @end
 

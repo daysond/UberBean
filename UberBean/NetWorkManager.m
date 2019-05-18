@@ -10,7 +10,8 @@
 
 @implementation NetWorkManager
 
--(void)fetchData {
+-(void)fetchCafeData:(void(^)(NSArray *businesses))completionHandler{
+    
     
     NSURL *url = [NSURL URLWithString:@"https://api.yelp.com/v3/businesses/search?term=cafe&latitude=49.281815&longitude=-123.108414"];
     
@@ -35,24 +36,22 @@
         }
         
         NSError *jsonError;
-        NSData *jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        NSDictionary *parsedJSONData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
         
         if (jsonError) {
             NSLog(@"JSON Error: %@", jsonError);
         }
         
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            
-            
-        }];
+        NSArray *businesses = parsedJSONData[@"businesses"];
         
-        NSLog(@"%@",jsonData);
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            completionHandler(businesses);
+        }];
         
     }];
     
+    
     [dataTask resume];
-    
-    
     
 }
 
