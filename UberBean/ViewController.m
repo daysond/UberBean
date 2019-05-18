@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "NetWorkManager.h"
 
 
 @interface ViewController () <CLLocationManagerDelegate,MKMapViewDelegate>
@@ -26,6 +27,10 @@
     [self.cafeMap setShowsUserLocation:YES];
     
     [self.locationManager requestWhenInUseAuthorization];
+    
+    NetWorkManager *networkManager = [NetWorkManager new];
+    
+    [networkManager fetchData];
     
 }
 
