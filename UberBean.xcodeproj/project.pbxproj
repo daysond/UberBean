@@ -15,6 +15,7 @@
 		ED917C5E228F5A3400844020 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ED917C5D228F5A3400844020 /* main.m */; };
 		ED917C66228F5BB600844020 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED917C65228F5BB600844020 /* MapKit.framework */; };
 		ED917C69228F96D000844020 /* NetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ED917C68228F96D000844020 /* NetWorkManager.m */; };
+		ED917C6C228F9AFD00844020 /* Cafe.m in Sources */ = {isa = PBXBuildFile; fileRef = ED917C6B228F9AFD00844020 /* Cafe.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,8 @@
 		ED917C65228F5BB600844020 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		ED917C67228F96D000844020 /* NetWorkManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetWorkManager.h; sourceTree = "<group>"; };
 		ED917C68228F96D000844020 /* NetWorkManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetWorkManager.m; sourceTree = "<group>"; };
+		ED917C6A228F9AFD00844020 /* Cafe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cafe.h; sourceTree = "<group>"; };
+		ED917C6B228F9AFD00844020 /* Cafe.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Cafe.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +74,8 @@
 				ED917C52228F5A3300844020 /* ViewController.m */,
 				ED917C67228F96D000844020 /* NetWorkManager.h */,
 				ED917C68228F96D000844020 /* NetWorkManager.m */,
+				ED917C6A228F9AFD00844020 /* Cafe.h */,
+				ED917C6B228F9AFD00844020 /* Cafe.m */,
 				ED917C54228F5A3300844020 /* Main.storyboard */,
 				ED917C57228F5A3400844020 /* Assets.xcassets */,
 				ED917C59228F5A3400844020 /* LaunchScreen.storyboard */,
@@ -158,6 +163,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED917C6C228F9AFD00844020 /* Cafe.m in Sources */,
 				ED917C69228F96D000844020 /* NetWorkManager.m in Sources */,
 				ED917C53228F5A3300844020 /* ViewController.m in Sources */,
 				ED917C5E228F5A3400844020 /* main.m in Sources */,

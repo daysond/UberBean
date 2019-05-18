@@ -24,8 +24,27 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
+        if (error) {
+            NSLog(@"Error: %@",error);
+        }
+        
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*) response;
+        
+        if (httpResponse.statusCode != 200) {
+            NSLog(@"HTTP Status code: %ld",httpResponse.statusCode);
+        }
+        
         NSError *jsonError;
         NSData *jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        
+        if (jsonError) {
+            NSLog(@"JSON Error: %@", jsonError);
+        }
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            
+            
+        }];
         
         NSLog(@"%@",jsonData);
         
