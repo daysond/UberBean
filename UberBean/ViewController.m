@@ -18,12 +18,15 @@
 @property (nonatomic) NetWorkManager *networkManager;
 @property (weak, nonatomic) IBOutlet MKMapView *cafeMap;
 @property (nonatomic) NSMutableArray <Cafe*> *cafes;
+@property (nonatomic) NSInteger currentIndex;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.currentIndex = 0;
     
     [self.cafeMap setShowsUserLocation:YES];
     
@@ -33,7 +36,7 @@
     
     [self fetchData];
     
-    [self.cafeMap registerClass:[MKAnnotationView class] forAnnotationViewWithReuseIdentifier:@"pin"];
+    [self.cafeMap registerClass:[MKMarkerAnnotationView class] forAnnotationViewWithReuseIdentifier:@"marker"];
     
 
     
@@ -69,13 +72,41 @@
             Cafe *cafe = [[Cafe alloc]initWithCafeInfo:cafeInfo];
             [self.cafes addObject:cafe];
         }
+        
+        [self fetchImage];
        
         for (Cafe *cafe in self.cafes) {
             [self.cafeMap addAnnotation:cafe];
         }
+        
         [self.cafeMap showAnnotations:self.cafes animated:YES];
     }];
 
+}
+
+-(void)fetchImage{
+    
+    for (Cafe *cafe in self.cafes) {
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+        
+        NSURLSessionDownloadTask * downloadTask = [session downloadTaskWithURL:cafe.imageURL completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            
+            if (error) {
+                NSLog(@"Error: %@", error);
+            }
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                
+                UIImage *cafeImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
+                cafe.cafeImage = cafeImage;
+                
+            }];
+        }];
+        
+        [downloadTask resume];
+        
+    }
+    
 }
 
 #pragma mark - Delegate
@@ -101,17 +132,36 @@
     
 }
 
-//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-//
-//    if ([annotation isKindOfClass:[MKUserLocation class]]) {
-//        return nil;
-//    }
-//
-//    MKPinAnnotationView *pin = (MKPinAnnotationView*) [mapView dequeueReusableAnnotationViewWithIdentifier:@"pin" forAnnotation:annotation];
-//
-//    return pin;
-//
-//}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+
+
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        return nil;
+    }
+    MKMarkerAnnotationView *marker = (MKMarkerAnnotationView*) [mapView dequeueReusableAnnotationViewWithIdentifier:@"marker" forAnnotation:annotation];
+
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    
+
+    marker.rightCalloutAccessoryView = button;
+    
+    UIImageView *image = [[UIImageView alloc]initWithImage:self.cafes[self.currentIndex].cafeImage];
+    
+    self.currentIndex ++;
+    
+    marker.leftCalloutAccessoryView = image;
+
+    [marker setEnabled:YES];
+    [marker setCanShowCallout:YES];
+
+
+    
+    return marker;
+
+}
+
+
 
 
 @end

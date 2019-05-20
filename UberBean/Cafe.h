@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, copy) NSString* title;
 @property (nonatomic) NSURL* imageURL;
 @property (nonatomic) NSString* rating;
+@property (nonatomic) UIImage *cafeImage;
 
 - (instancetype)initWithCafeInfo: (NSDictionary*)cafeInfo;
 
